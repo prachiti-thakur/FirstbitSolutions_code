@@ -1,0 +1,27 @@
+26>assgn5
+ select b.book_no,book_name, from
+    -> book b inner join ( select book_no from book where book_no in(select book_no from issue where month(issue_date)=12) and category ='databases') i
+    -> on b.book_no=i.book_no;
++---------+---------------------+
+| book_no | book_name           |
++---------+---------------------+
+|     102 | oracle complete ref |
++---------+---------------------+
+
+mysql> select member_id ,issue_date from issue order by issue_date limit 5;
++-----------+------------+
+| member_id | issue_date |
++-----------+------------+
+|         7 | 2004-06-04 |
+|         3 | 2006-02-18 |
+|         3 | 2006-07-13 |
+|         5 | 2006-10-10 |
+|         2 | 2006-11-06 |
++-----------+------------+
+5 rows in set (0.00 sec)
+
+ 44) List first 5 members who had joined library.
+
+
+mysql> select * from member where member_id in(select member_id from issue order by issue_date limit 5);
+ERROR 1235 (42000): This version of MySQL doesn't yet support 'LIMIT & IN/ALL/ANY/SOME subquery'

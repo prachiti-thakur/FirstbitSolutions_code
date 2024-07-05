@@ -1,0 +1,204 @@
+error 
+mysql> insert into employee values(1,"ablibaug","prachiti",89909.90,abc,"alibaug",2025-05-04);
+ERROR 1054 (42S22): Unknown column 'abc' in 'field list'
+mysql> insert into employee values(1,"ablibaug","prachiti",89909.90,"abc","alibaug",2025-05-04);
+ERROR 1292 (22007): Incorrect date value: '2016' for column 'dob' at row 1
+mysql> insert into employee values(1,"ablibaug","prachiti",89909.90,"abc","alibaug",2034-05-04);
+ERROR 1292 (22007): Incorrect date value: '2025' for column 'dob' at row 1
+mysql>
+
+
+30th may 
+
+
+mysql> use fbs
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_fbs |
++---------------+
+| book          |
+| employee      |
+| student       |
++---------------+
+3 rows in set (0.06 sec)
+
+mysql> rename table student to fbs_student;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_fbs |
++---------------+
+| book          |
+| employee      |
+| fbs_student   |
++---------------+
+3 rows in set (0.00 sec)
+
+mysql> desc fbs_student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | YES  |     | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| marks  | float       | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table fbs_student add primarykey(rollno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(rollno)' at line 1
+mysql> alter table fbs_student add primary key(rollno);
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc fbs_student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | NO   | PRI | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| marks  | float       | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table fbs_student modify column name varchar(20) not null;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc fbs_student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | NO   | PRI | NULL    |       |
+| name   | varchar(20) | NO   |     | NULL    |       |
+| marks  | float       | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table fbs_student modify column marks float(m,d) default 45.5;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'm,d) default 45.5' at line 1
+mysql> alter table fbs_student modify column marks float(m,d) default 45.50;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'm,d) default 45.50' at line 1
+mysql> alter table fbs_student modify column marks float default 45.50;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc fbs_student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int         | NO   | PRI | NULL    |       |
+| name   | varchar(20) | NO   |     | NULL    |       |
+| marks  | float       | YES  |     | 45.5    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc employee;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| eid         | int          | YES  |     | NULL    |       |
+| location    | varchar(50)  | YES  |     | NULL    |       |
+| ename       | varchar(20)  | YES  |     | NULL    |       |
+| salary      | decimal(7,2) | YES  |     | NULL    |       |
+| designation | varchar(30)  | YES  |     | NULL    |       |
+| city        | varchar(30)  | YES  |     | NULL    |       |
+| dob         | date         | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table employee add primary key(eid);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| eid         | int          | NO   | PRI | NULL    |       |
+| location    | varchar(50)  | YES  |     | NULL    |       |
+| ename       | varchar(20)  | YES  |     | NULL    |       |
+| salary      | decimal(7,2) | YES  |     | NULL    |       |
+| designation | varchar(30)  | YES  |     | NULL    |       |
+| city        | varchar(30)  | YES  |     | NULL    |       |
+| dob         | date         | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table employee modify column location varchar(20) default "Pune";
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee modify column ename varchar(20) not null;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee modify column designation varchar(30) unique;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emoployee;
+ERROR 1146 (42S02): Table 'fbs.emoployee' doesn't exist
+mysql> desc employee;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| eid         | int          | NO   | PRI | NULL    |       |
+| location    | varchar(20)  | YES  |     | Pune    |       |
+| ename       | varchar(20)  | NO   |     | NULL    |       |
+| salary      | decimal(7,2) | YES  |     | NULL    |       |
+| designation | varchar(30)  | YES  | UNI | NULL    |       |
+| city        | varchar(30)  | YES  |     | NULL    |       |
+| dob         | date         | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+============================================================
+============================================================
+===========================================================
+book homework
+mysql> alter table book add column ISBN int unique;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc book;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| bid      | int         | YES  |     | NULL    |       |
+| bname    | varchar(20) | YES  |     | NULL    |       |
+| pub_date | date        | YES  |     | NULL    |       |
+| authour  | varchar(20) | YES  |     | NULL    |       |
+| price    | float(5,2)  | YES  |     | NULL    |       |
+| ISBN     | int         | YES  | UNI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table book add primary key(bid);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table book modify column authour varchar(20) not null;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table book modify column pub_date date default 2023-08-02;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-08-02' at line 1
+mysql> alter table book modify column pub_date date default '2023-08-02';
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc book;
++----------+-------------+------+-----+------------+-------+
+| Field    | Type        | Null | Key | Default    | Extra |
++----------+-------------+------+-----+------------+-------+
+| bid      | int         | NO   | PRI | NULL       |       |
+| bname    | varchar(20) | YES  |     | NULL       |       |
+| pub_date | date        | YES  |     | 2023-08-02 |       |
+| authour  | varchar(20) | NO   |     | NULL       |       |
+| price    | float(5,2)  | YES  |     | NULL       |       |
+| ISBN     | int         | YES  | UNI | NULL       |       |
++----------+-------------+------+-----+------------+-------+
+6 rows in set (0.00 sec)
+
+mysql>

@@ -1,0 +1,29 @@
+//5 digits
+
+#include<stdio.h>
+void main(){
+	
+	int num=42315;
+	int r1,r2,r3,r4,r5;
+	int q1,q2,q3,q4,q5;
+	
+	int sum;
+	r1=num%10; //5
+	q1=num/10; //4231
+	
+	r2=q1%10; //1
+	q2=q1/10;//423
+	
+	r3=q2%10; //3
+	q3=q2/10; //42
+	
+	r4=q3%10; //2
+	q4=q3/10;// 4
+	
+	r5=q4%10;//4
+	q5=q4/10;//0
+	
+	sum = r1+r2+r3+r4+r5;
+	
+	printf(" sum of the digits %d is %d ",num,sum);
+}

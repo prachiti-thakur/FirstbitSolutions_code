@@ -1,0 +1,156 @@
+assignment 3
+
+mysql> insert into department values(10,"administration",200,1700),
+    -> (20,"marketing",201,1800),(30,"purchasing",114,1700);
+mysql> insert into department values(20,"Hr",203,2400),(50,"shipping",121,15
+00),(60,"IT",103,1400),(70,"public relation",204,2700),(80,"sales",145,2500)
+;
+Query OK, 5 rows affected (0.02 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from department;
++---------------+-----------------+------------+-------------+
+| department_id | department_name | manager_id | location_id |
++---------------+-----------------+------------+-------------+
+|            10 | administration  |        200 |        1700 |
+|            20 | marketing       |        201 |        1800 |
+|            20 | Hr              |        203 |        2400 |
+|            30 | purchasing      |        114 |        1700 |
+|            50 | shipping        |        121 |        1500 |
+|            60 | IT              |        103 |        1400 |
+|            70 | public relation |        204 |        2700 |
+|            80 | sales           |        145 |        2500 |
++---------------+-----------------+------------+-------------+
+
+
+mysql> select * from emp;
++--------+------------+-----------+----------+------------+------------+----------+----------+------------+------------+---------------+
+| emp_id | first_name | last_name | email    | phone_no   | hire_date  | job_id   | salary   | commission | manager_id | department_id |
++--------+------------+-----------+----------+------------+------------+----------+----------+------------+------------+---------------+
+|    100 | steven     | king      | sking    | 5121234567 | 1987-06-17 | ad-press | 24000.00 |       0.00 |        200 |            10 |
+|    101 | neena      | kochhar   | nkochhar | 5151234568 | 1987-06-18 | ad-vp    | 17000.00 |       0.00 |        200 |            10 |
+|    102 | lex        | de haan   | ldehaan  | 5151234569 | 1987-06-19 | ad-vp    | 17000.00 |       0.00 |        200 |            10 |
+|    103 | alexander  | hunold    | ahunold  | 5904234567 | 1987-06-20 | it_prog  |  9000.00 |       0.00 |        103 |            60 |
+|    104 | bruce      | ernst     | bernst   | 5904234568 | 1987-06-21 | it_prog  |  6000.00 |       0.00 |        103 |            60 |
+|    105 | david      | austin    | daustin  | 5904234569 | 1987-06-22 | it_prog  |  4800.00 |       0.00 |        103 |            60 |
+|    106 | valli      | patavalla | vpatabal | 5904234560 | 1987-06-23 | it_prog  |  4200.00 |       0.00 |        114 |            30 |
+|    107 | diana      | lorentz   | dlorentz | 5904234560 | 1987-06-24 | it_prog  |  4200.00 |       0.00 |        114 |            30 |
+|    108 | nancy      | greenberg | ngreenbe | 5151244569 | 1987-06-25 | sa_man   | 12000.00 |       0.00 |        145 |            80 |
+|    109 | daniel     | faviet    | dfaviet  | 5151244169 | 1987-06-26 | sa_man   |  9000.00 |       0.00 |        145 |            80 |
++--------+------------+-----------+----------+------------+------------+----------+----------+------------+------------+---------------+
+2. Write a SQL statement to insert 3 rows by a single insert statement.
+
+
+mysql> insert into department values(10,"administration",200,1700),
+    -> (20,"marketing",201,1800),(30,"purchasing",114,1700);
+
+3. Write a SQL statement to insert one row in jobs table to ensure that no duplicate 
+value will be entered in the job_id colum
+mysql> select * from job;
++------------+-------------------------------+------------+------------+
+| job_id     | job_title                     | min_salary | max_salary |
++------------+-------------------------------+------------+------------+
+| ac_account | public_accountant             |    4200.00 |    9000.00 |
+| ac_mgr     | accounting manager            |    8200.00 |   16000.00 |
+| ad-asst    | administration assistant      |    3000.00 |    6000.00 |
+| ad-press   | president                     |   20000.00 |   40000.00 |
+| ad-vp      | administration vice president |   15000.00 |   30000.00 |
+| fi_account | accountant                    |    4200.00 |    9000.00 |
+| fi_mgr     | finance manager               |    8200.00 |   16000.00 |
+| sa_man     | sales manager                 |   10000.00 |   20000.00 |
++------------+-------------------------------+------------+------------+
+8 rows in set (0.00 sec)
+
+mysql> insert into job values("ac_account","public_accountant",4200,9000);
+ERROR 1062 (23000): Duplicate entry 'ac_account' for key 'job.PRIMARY'
+4. Write SQL statement to increment salary of each emp by 10%.
+mysql> update emp set salary=salary+salary*0.1;
+Query OK, 10 rows affected (0.02 sec)
+Rows matched: 10  Changed: 10  Warnings: 0
+
+mysql> select * from emp;
++--------+------------+-----------+----------+------------+------------+----------+----------+------------+------------+---------------+
+| emp_id | first_name | last_name | email    | phone_no   | hire_date  | job_id   | salary   | commission | manager_id | department_id |
++--------+------------+-----------+----------+------------+------------+----------+----------+------------+------------+---------------+
+|    100 | steven     | king      | sking    | 5121234567 | 1987-06-17 | ad-press | 26400.00 |       0.00 |        200 |            10 |
+|    101 | neena      | kochhar   | nkochhar | 5151234568 | 1987-06-18 | ad-vp    | 18700.00 |       0.00 |        200 |            10 |
+|    102 | lex        | de haan   | ldehaan  | 5151234569 | 1987-06-19 | ad-vp    | 18700.00 |       0.00 |        200 |            10 |
+|    103 | alexander  | hunold    | ahunold  | 5904234567 | 1987-06-20 | it_prog  |  9900.00 |       0.00 |        103 |            60 |
+|    104 | bruce      | ernst     | bernst   | 5904234568 | 1987-06-21 | it_prog  |  6600.00 |       0.00 |        103 |            60 |
+|    105 | david      | austin    | daustin  | 5904234569 | 1987-06-22 | it_prog  |  5280.00 |       0.00 |        103 |            60 |
+|    106 | valli      | patavalla | vpatabal | 5904234560 | 1987-06-23 | it_prog  |  4620.00 |       0.00 |        114 |            30 |
+|    107 | diana      | lorentz   | dlorentz | 5904234560 | 1987-06-24 | it_prog  |  4620.00 |       0.00 |        114 |            30 |
+|    108 | nancy      | greenberg | ngreenbe | 5151244569 | 1987-06-25 | sa_man   | 13200.00 |       0.00 |        145 |            80 |
+|    109 | daniel     | faviet    | dfaviet  | 5151244169 | 1987-06-26 | sa_man   |  9900.00 |       0.00 |        145 |            80 |
++--------+------------+-----------+----------+------------+------------+----------+----------+------------+------------+---------------+
+
+5. Write a SQL statement to change the email column of employees table with 'not 
+available' for those employees whose department_id is 80 and gets a 
+commission is less than .20%
+
+mysql> update emp set email="not available" where department_id=80 and commission <0.2;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 2  Changed: 0  Warnings: 0
+
+mysql> select * from emp;
++--------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+| emp_id | first_name | last_name | email         | phone_no   | hire_date  | job_id   | salary   | commission | manager_id | department_id |
++--------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+|    100 | steven     | king      | not available | 5121234567 | 1987-06-17 | ad-press | 26400.00 |       0.10 |        200 |            10 |
+|    101 | neena      | kochhar   | not available | 5151234568 | 1987-06-18 | ad-vp    | 18700.00 |       0.10 |        200 |            10 |
+|    102 | lex        | de haan   | not available | 5151234569 | 1987-06-19 | ad-vp    | 18700.00 |       0.10 |        200 |            10 |
+|    103 | alexander  | hunold    | not available | 5904234567 | 1987-06-20 | it_prog  |  9900.00 |       0.10 |        103 |            60 |
+|    104 | bruce      | ernst     | not available | 5904234568 | 1987-06-21 | it_prog  |  6600.00 |       0.10 |        103 |            60 |
+|    105 | david      | austin    | not available | 5904234569 | 1987-06-22 | it_prog  |  5280.00 |       0.10 |        103 |            60 |
+|    106 | valli      | patavalla | not available | 5904234560 | 1987-06-23 | it_prog  |  4620.00 |       0.10 |        114 |            30 |
+|    107 | diana      | lorentz   | not available | 5904234560 | 1987-06-24 | it_prog  |  4620.00 |       0.10 |        114 |            30 |
+|    108 | nancy      | greenberg | not available | 5151244569 | 1987-06-25 | sa_man   | 13200.00 |       0.10 |        145 |            80 |
+|    109 | daniel     | faviet    | not available | 5151244169 | 1987-06-26 | sa_man   |  9900.00 |       0.10 |        145 |            80 |
++--------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+
+6. Write a SQL statement to change the email column of employees table with 'not 
+available' for those employees who belongs to the 'Purchasing' department.
+mysql> update emp set email="not_available" where department_id=30;
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from emp;
++--------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+| emp_id | first_name | last_name | email         | phone_no   | hire_date  | job_id   | salary   | commission | manager_id | department_id |
++--------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+|    100 | steven     | king      | sking         | 5121234567 | 1987-06-17 | ad-press | 26400.00 |       0.00 |        200 |            10 |
+|    101 | neena      | kochhar   | nkochhar      | 5151234568 | 1987-06-18 | ad-vp    | 18700.00 |       0.00 |        200 |            10 |
+|    102 | lex        | de haan   | ldehaan       | 5151234569 | 1987-06-19 | ad-vp    | 18700.00 |       0.00 |        200 |            10 |
+|    103 | alexander  | hunold    | ahunold       | 5904234567 | 1987-06-20 | it_prog  |  9900.00 |       0.00 |        103 |            60 |
+|    104 | bruce      | ernst     | bernst        | 5904234568 | 1987-06-21 | it_prog  |  6600.00 |       0.00 |        103 |            60 |
+|    105 | david      | austin    | daustin       | 5904234569 | 1987-06-22 | it_prog  |  5280.00 |       0.00 |        103 |            60 |
+|    106 | valli      | patavalla | not_available | 5904234560 | 1987-06-23 | it_prog  |  4620.00 |       0.00 |        114 |            30 |
+|    107 | diana      | lorentz   | not_available | 5904234560 | 1987-06-24 | it_prog  |  4620.00 |       0.00 |        114 |            30 |
+|    108 | nancy      | greenberg | ngreenbe      | 5151244569 | 1987-06-25 | sa_man   | 13200.00 |       0.00 |        145 |            80 |
+|    109 | daniel     | faviet    | dfaviet       | 5151244169 | 1987-06-26 | sa_man   |  9900.00 |       0.00 |        145 |            80 |
++--------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+7. Write a SQL statement to change the email and commission_pct column of 
+employees table with 'not available' and 0.10 for all employees
+mysql> update emp set email="not available";
+Query OK, 10 rows affected (0.02 sec)
+Rows matched: 10  Changed: 10  Warnings: 0
+
+mysql> update emp set commission=0.1;
+Query OK, 10 rows affected (0.00 sec)
+Rows matched: 10  Changed: 10  Warnings: 0
+
+mysql> select * from emp;
++--------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+| emp_id | first_name | last_name | email         | phone_no   | hire_date  | job_id   | salary   | commission | manager_id | department_id |
++--------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+
+|    100 | steven     | king      | not available | 5121234567 | 1987-06-17 | ad-press | 26400.00 |       0.10 |        200 |            10 |
+|    101 | neena      | kochhar   | not available | 5151234568 | 1987-06-18 | ad-vp    | 18700.00 |       0.10 |        200 |            10 |
+|    102 | lex        | de haan   | not available | 5151234569 | 1987-06-19 | ad-vp    | 18700.00 |       0.10 |        200 |            10 |
+|    103 | alexander  | hunold    | not available | 5904234567 | 1987-06-20 | it_prog  |  9900.00 |       0.10 |        103 |            60 |
+|    104 | bruce      | ernst     | not available | 5904234568 | 1987-06-21 | it_prog  |  6600.00 |       0.10 |        103 |            60 |
+|    105 | david      | austin    | not available | 5904234569 | 1987-06-22 | it_prog  |  5280.00 |       0.10 |        103 |            60 |
+|    106 | valli      | patavalla | not available | 5904234560 | 1987-06-23 | it_prog  |  4620.00 |       0.10 |        114 |            30 |
+|    107 | diana      | lorentz   | not available | 5904234560 | 1987-06-24 | it_prog  |  4620.00 |       0.10 |        114 |            30 |
+|    108 | nancy      | greenberg | not available | 5151244569 | 1987-06-25 | sa_man   | 13200.00 |       0.10 |        145 |            80 |
+|    109 | daniel     | faviet    | not available | 5151244169 | 1987-06-26 | sa_man   |  9900.00 |       0.10 |        145 |            80 |
++--------+------------+-----------+---------------+------------+------------+----------+----------+------------+------------+---------------+

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Driven</title>
+    <script>
+            function Evnodd(){
+                num=parseInt(document.getElementById("txt").value);
+                if(num%2==0){
+                    document.getElementById("span").innerHTML="Number is Even"+num;
+                }
+                else{
+                    document.getElementById("span").innerHTML="Number is odd"+num;
+
+                }
+            }
+
+
+            function prime(){
+                num=parseInt(document.getElementById("txt").value);
+                flag=0;
+                for(i=2;i<num;i++){
+                    if(num%i==0){
+                        document.getElementById("span").innerHTML="Number is not prime "+num;
+                        flag=1;
+                        break;
+                    }
+                }
+
+                if(flag==0){
+                    document.getElementById("span").innerHTML="Number is prime "+num;
+
+                }
+                else{
+                    document.getElementById("span").innerHTML="Number is not prime "+num;
+
+                }
+
+            }
+    </script>
+
+    <style>
+        div{
+            margin-top: 300px;
+            margin-left: 400px;
+            border:2px solid black;
+            height:70px;
+            width:300px
+        }
+            #span{
+                font-style: italic;
+                font-family: Arial;
+            }
+
+    </style>
+</head>
+<body>
+    <div>
+        <input type="button" id ="Evnodd" value="Even odd" onclick="Evnodd()">
+    <input type="button" value="prime" onclick="prime()"><br>
+
+    <input type="text" id="txt"><br>
+    <span id="span"></span>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,32 @@
+create procedure demo()
+begin 
+ select * from emp;
+end
+
+
+-----------------------------------------------------------------
+create procedure getSalary(id int)
+begin
+select salary from emp where emp_id=id;
+end
+
+
+mysql> call getSalary(102);
+    -> $
++----------+
+| salary   |
++----------+
+| 18700.00 |
++----------+
+
+---------------------------------------------------------------
+create procedure updateSalary(id int)
+begin
+declare sal int;
+select salary into sal from emp where emp_id=id;
+if(sal>25000) then
+ update emp set salary= salary * 1.20 where emp_id=id;
+else
+update emp set salary =salary * 1.10 where emp_id=id;
+end if;
+end

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>increment_decremet</title>
+
+    <script>
+       function incre_decr(op){
+            if(op=='+'){
+              res=parseInt(document.getElementById("num").value);
+              res=res+1;
+              document.getElementById("num").value=res;
+            }
+            if(op=="-"){
+                res=parseInt(document.getElementById("num").value);
+                res=res-1;
+                document.getElementById("num").value=res;
+            }
+        }
+    </script>
+    <style>
+        .btn{
+            margin-top:40px;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+   
+<div style="border:2px solid black;width:300px;height:100px;margin:100px">
+       <input type="button" class="btn" value="+" onclick="incre_decr('+')">
+        <input type="text"  class="btn" id="num" >
+        <input type="button"  class="btn" value="-" onclick="incre_decr('-')">
+    </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <form action="/dummy" method="post">
+    <table border>
+    <tr> 
+        <td><label for="uname"  style="background: red;">UserName</label> </td> 
+        <td><input type="text" id="uname" name="uname"> </td>
+    </tr>
+    <tr> 
+        <td>Password </td>
+        <td><input type="password" id="password" name="pass"> </td>
+    </tr>
+    <tr> 
+        <td>Mob No </td>
+        <td><input type="number" name="mobno"> </td>
+    </tr>
+    <tr>
+        <td>Gender</td>
+        <td>
+            <input type="radio" name="gender" value="male">Male 
+            <input type="radio" name="gender">Female 
+            <input type="radio" name="gender">Other
+        </td>
+    </tr>
+    <tr><td>State</td>
+    <td>
+        <select name="state">
+            <option value="mh">Maharastra</option>
+            <option>Gujrat</option>
+            <option>Bihar</option>
+        </select>
+        <!-- <input type="text" list="dlist">
+        <datalist name="state" id="dlist">
+            <option value="mh">Maharastra</option>
+            <option>Gujrat</option>
+            <option>Goa</option>
+            <option>MP</option>
+            <option>Bihar</option>
+        </datalist> -->
+    </td>
+    <tr><td>Subjects</td>
+    <td>
+      <input type="checkbox" name="subject1" value="math"> Math
+       <input type="checkbox" name="subject2"> Marathi
+       <input type="checkbox" name="subject3"> Sanskrit
+    </td>
+   
+    </tr>
+    </tr>
+
+    <tr><td>
+        <!-- <button>Click Here</button>
+        <input type="button" value="Click Here"> -->
+        <input type="submit" value="Submit">
+        
+    </td>
+    <td> <input type="Reset" value="Reset"></td>
+</tr>
+    </table>
+
+    </form>
+</body>
+</html>

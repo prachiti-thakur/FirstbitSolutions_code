@@ -1,0 +1,79 @@
+//modulation
+#include<stdio.h>
+struct Complex{
+	int real;
+	int img;
+	
+	//setters
+	void setreal(int r){
+		this->real=r;
+	}
+	void setimg(int i){
+		this->img=i;
+	}
+	
+	void display(){
+		printf("%d+%di\n",this->real,this->img);
+	}
+	
+	//getters
+	int getReal(){
+		return this->real;
+	}
+	
+	int getImg(){
+		return this->img;
+	}
+	
+	//constructor
+	Complex(){
+		this->real=0;
+		this->img=0;
+		printf("Default Constructor called\n");//POC
+	}
+	//parameterised constructor
+	Complex(int r, int i){
+		this->real=r;
+		this->img=i;
+		printf("Parameterised Constructor called\n");//POC
+	}
+	
+	//overloading
+	Complex operator%(Complex c){
+		Complex temp;
+		temp.real=this->real%c.real;
+		temp.img=this->img%c.img;
+		return temp;
+	}
+	
+	Complex operator%(int a){
+		Complex temp;
+		temp.real=this->real%a;
+		temp.img=this->img%a;
+		return temp;
+	}
+};
+
+Complex operator%(int,Complex);
+int main(){
+	Complex  c1(10,20);
+	Complex c2(3,6);
+	Complex c3;
+	c3= c1%c2;
+	c3.display();
+	
+	Complex c4;
+	c4=c1%3;
+	c4.display();
+	
+	Complex c5;
+	c5=3%c1;
+	c5.display();
+	return 0;
+}
+Complex operator%(int a,Complex c){
+	Complex temp;
+	temp.real=c.real%a;
+	temp.img=c.img%a;
+	return temp;
+}

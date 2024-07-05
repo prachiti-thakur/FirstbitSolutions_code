@@ -1,0 +1,275 @@
+//check and foreign key constraints
+
+mysql> use fbs
+Database changed
+mysql> create table project
+    -> (pno varchar(20),
+    -> eid int,
+    -> hr int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> alter table project add primary key(pno,eid);
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc project;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| pno   | varchar(20) | NO   | PRI | NULL    |       |
+| eid   | int         | NO   | PRI | NULL    |       |
+| hr    | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.07 sec)
+
+mysql> show employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employee' at line 1
+mysql> show table employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employee' at line 1
+mysql> show tables;
++---------------+
+| Tables_in_fbs |
++---------------+
+| book          |
+| countries     |
+| department    |
+| employee      |
+| fbs_student   |
+| job_histry    |
+| project       |
++---------------+
+7 rows in set (0.02 sec)
+
+mysql> desc employee;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| eid         | int          | NO   | PRI | NULL    |       |
+| location    | varchar(20)  | YES  |     | Pune    |       |
+| ename       | varchar(20)  | NO   |     | NULL    |       |
+| salary      | decimal(7,2) | YES  |     | NULL    |       |
+| designation | varchar(30)  | YES  | UNI | NULL    |       |
+| city        | varchar(30)  | YES  |     | NULL    |       |
+| dob         | date         | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table employee salary decimal(7,2) check(salary<0);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'salary decimal(7,2) check(salary<0)' at line 1
+mysql> alter table employee modify column salary decimal(7,2) check(salary>0);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| eid         | int          | NO   | PRI | NULL    |       |
+| location    | varchar(20)  | YES  |     | Pune    |       |
+| ename       | varchar(20)  | NO   |     | NULL    |       |
+| salary      | decimal(7,2) | YES  |     | NULL    |       |
+| designation | varchar(30)  | YES  | UNI | NULL    |       |
+| city        | varchar(30)  | YES  |     | NULL    |       |
+| dob         | date         | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> show create table employee;
++----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table
+
+
+                                                                                                       |
++----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| employee | CREATE TABLE `employee` (
+  `eid` int NOT NULL,
+  `location` varchar(20) DEFAULT 'Pune',
+  `ename` varchar(20) NOT NULL,
+  `salary` decimal(7,2) DEFAULT NULL,
+  `designation` varchar(30) DEFAULT NULL,
+  `city` varchar(30) DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  PRIMARY KEY (`eid`),
+  UNIQUE KEY `designation` (`designation`),
+  CONSTRAINT `employee_chk_1` CHECK ((`salary` > 0))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> desc student;
+ERROR 1146 (42S02): Table 'fbs.student' doesn't exist
+mysql> create table student
+    -> (rollno int,
+    -> name varchar(20),
+    -> marks decimal(5,2));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> alter table student modify column marks decimal(5,2) check (marks<=100);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show create table student;
++---------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table
+
+                   |
++---------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| student | CREATE TABLE `student` (
+  `rollno` int DEFAULT NULL,
+  `name` varchar(20) DEFAULT NULL,
+  `marks` decimal(5,2) DEFAULT NULL,
+  CONSTRAINT `student_chk_1` CHECK ((`marks` <= 100))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++---------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> alter table student add column address varchar(30);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table student modify column address varchar(30) check(address="Pune" or address="Nashik");
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| eid         | int          | NO   | PRI | NULL    |       |
+| location    | varchar(20)  | YES  |     | Pune    |       |
+| ename       | varchar(20)  | NO   |     | NULL    |       |
+| salary      | decimal(7,2) | YES  |     | NULL    |       |
+| designation | varchar(30)  | YES  | UNI | NULL    |       |
+| city        | varchar(30)  | YES  |     | NULL    |       |
+| dob         | date         | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table employee modify column city varchar(30) check(city in("Pune","Nashik","mumbai","banglore"));
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show tables;
++---------------+
+| Tables_in_fbs |
++---------------+
+| book          |
+| countries     |
+| department    |
+| employee      |
+| fbs_student   |
+| job_histry    |
+| project       |
+| student       |
++---------------+
+8 rows in set (0.00 sec)
+
+mysql> desc department;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| department_id   | decimal(4,0) | NO   | PRI | 0       |       |
+| department_name | varchar(30)  | NO   |     | NULL    |       |
+| manager_id      | decimal(6,0) | NO   | PRI | 0       |       |
+| location_id     | decimal(4,0) | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table custumer
+    -> (cid int,
+    -> cname varchar(30),
+    -> adhar_no bigint,
+    -> address varchar(30));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> alter table custumer add primary key(cid);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> create table account
+    -> (accno int primary key,
+    -> balance int check(balance>0),
+    -> type varchar
+    -> (20) not null,
+    -> custno int,
+    -> foreign key(custno)
+    -> reference custumer(cid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reference custumer(cid))' at line 8
+mysql> create table account
+    -> (accno int primary key,
+    -> balance int check(balance>0),
+    -> type varchar
+    -> (20) not null,
+    -> custno int,
+    -> foreign key(custno),
+    -> reference custumer(cid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',
+reference custumer(cid))' at line 7
+mysql> create table account
+    -> (accno int primary key,
+    -> balance int check(balance>0),
+    -> type varchar
+    -> (20) not null,
+    -> custno int,
+    -> foreign key(custno)
+    -> reference custumer(cid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reference custumer(cid))' at line 8
+mysql> desc custumer;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| cid      | int         | NO   | PRI | NULL    |       |
+| cname    | varchar(30) | YES  |     | NULL    |       |
+| adhar_no | bigint      | YES  |     | NULL    |       |
+| address  | varchar(30) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> create table account
+    -> (accno int primary key,
+    -> balance int check(balance>0),
+    -> type varchar
+    -> (20) not null,
+    -> custno int,
+    -> foreign key(custno)
+    -> references custumer(cid));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> show create table account;
++---------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table
+
+
+                                               |
++---------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| account | CREATE TABLE `account` (
+  `accno` int NOT NULL,
+  `balance` int DEFAULT NULL,
+  `type` varchar(20) NOT NULL,
+  `custno` int DEFAULT NULL,
+  PRIMARY KEY (`accno`),
+  KEY `custno` (`custno`),
+  CONSTRAINT `account_ibfk_1` FOREIGN KEY (`custno`) REFERENCES `custumer` (`cid`),
+  CONSTRAINT `account_chk_1` CHECK ((`balance` > 0))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++---------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> drop table book;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table book
+    -> (bid int primary key,
+    -> bname varchar(20) not null,
+    -> authour varchar(20) not null default "Prachiti",
+    -> isbn int unique,
+    -> pub_date date default "2020-3-20";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 6
+mysql> create table book
+    -> (bid int primary key,
+    -> bname varchar(20) not null,
+    -> authour varchar(20) not null default "Prachiti",
+    -> isbn int unique,
+    -> pub_date date default '2020-3-20';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 6
+mysql>

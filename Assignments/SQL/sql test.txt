@@ -1,0 +1,17 @@
+ sql test
+Q1. select salesman_id,city,commission from salesman;
+Q2.select * from customer where cust_name like "%o%;
+Q3.select * from customer where grade=200;
+q4 select sum(purch_amt) as"total_purch_amt" from orders;
+Q5 select * from customer where customer_id in (select customer_id from orders where ord_date="2012-10-05");
+Q6 select count(*) from customer group by grade having grade=(select min(grade) grade from customer);
+Q7.
+mysql> select cust_name,name ,s.city from customer c inner join salesman s on c.salesman_id=s.salesman_id where c.city=s
+.city;
+Q8. select * from orders where custumer_id not in( select customer_id from customer c inner join salesman s on c.sale
+sman_id=s.salesman_id where c.city=s.city);
+Q9.
+ select name from salesman where salesman_id in(select salesman_id from orders where custumer_id in( select customer_id from customer where grade>200));
+
+Q10.
+select * from orders where salesman_id =(select salesman_id from salesman where name="paul adam");
